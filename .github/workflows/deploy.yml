@@ -33,21 +33,14 @@ jobs:
           NITRO_PRESET: static
           VITE_BASE_PATH: /ColossoDigital/
 
-      - name: Show full build output tree (debug)
-        run: find . \( -path ./node_modules -o -path ./.git \) -prune -o -name '*.html' -print 2>/dev/null; echo '---'; ls -la dist/ 2>/dev/null || echo 'no dist/'; ls -la .output/ 2>/dev/null || echo 'no .output/'
-
       - name: Copy 404.html for SPA fallback
-        run: |
-          OUT=$(find . \( -path ./node_modules -o -path ./.git \) -prune -o -name 'index.html' -print 2>/dev/null | head -1 | xargs dirname)
-          echo "Detected output dir: $OUT"
-          cp "$OUT/index.html" "$OUT/404.html"
-          echo "PAGES_DIR=$OUT" >> $GITHUB_ENV
+        run: cp dist/client/index.html dist/client/404.html
 
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ env.PAGES_DIR }}
+          path: dist/client
 
   deploy:
     needs: build
