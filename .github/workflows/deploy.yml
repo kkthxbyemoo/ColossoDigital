@@ -31,6 +31,7 @@ jobs:
         run: bun run build
         env:
           NITRO_PRESET: static
+          VITE_BASE_PATH: /ColossoDigital/
 
       - name: Generate index.html
         run: |
@@ -43,11 +44,11 @@ jobs:
               <meta charset="utf-8" />
               <meta name="viewport" content="width=device-width, initial-scale=1" />
               <title>Colosso Digital</title>
-              <link rel="stylesheet" href="/assets/$CSS" />
+              <link rel="stylesheet" href="/ColossoDigital/assets/$CSS" />
             </head>
             <body>
               <div id="root"></div>
-              <script type="module" src="/assets/$JS"></script>
+              <script type="module" src="/ColossoDigital/assets/$JS"></script>
             </body>
           </html>
           EOF
