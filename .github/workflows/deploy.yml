@@ -33,14 +33,17 @@ jobs:
           NITRO_PRESET: static
           VITE_BASE_PATH: /ColossoDigital/
 
+      - name: Show build output (debug)
+        run: find . -maxdepth 4 -name 'index.html' 2>/dev/null || echo 'No index.html found'
+
       - name: Copy 404.html for SPA fallback
-        run: cp dist/client/index.html dist/client/404.html
+        run: cp .output/public/index.html .output/public/404.html
 
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/client
+          path: .output/public
 
   deploy:
     needs: build
